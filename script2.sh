@@ -30,7 +30,8 @@ function InstallPackage() {
     local packageName="$1"
     linkFromFile=$(cat "${folder_name}/package_$packageName")
     wget "$linkFromFile" -P "$folder_name"
-    sudo dpkg -i $(basename "$linkFromFile")
+    echo "the links is ther e: "$(basename $linkFromFile)
+    sudo dpkg -i "$folder_name/$(basename $linkFromFile)"
 }
 
 read -p "Donnez votre choix : 0 pour télécharger, 1 pour installer avec pacman : " choix
@@ -62,9 +63,14 @@ if [ $choix -eq 0 ]; then
     	echo "the package is installed with success"
     	exit 0
     fi
+    
+        dependancies=$(apt-cache show "$package" | grep 'Depends' | cut -d: -f 2)
+	IFS="," read -ra items <<< "$dependancies"
 
-  
-
+	for item in "${items[@]}"; do
+	    echo "Item: $item"
+	    sudo apt install "$item"
+	done
     
     
 elif [ $choix -eq 1 ]; then
