@@ -42,10 +42,14 @@ if [ $choix -eq 0 ]; then
     read -p "Donnez le nom du package : " package
 
     # Check if the package already exists in the folder
-    if [ -f "${folder_name}/package_${package}" ]; then
-        echo "Package already exists. No need to reinstall."
-        exit 0
+    
+    if dpkg -l | grep -q "$package"; then     
+       echo "$package is installed." 
+       exit 0
+    else     
+     	echo "$package is not installed." 
     fi
+
     echo -n "${folder_name}/package_${package}"
     
     # view first if there is a links in the text file : 
@@ -66,7 +70,7 @@ if [ $choix -eq 0 ]; then
     
         dependancies=$(apt-cache show "$package" | grep 'Depends' | cut -d: -f 2)
 	IFS="," read -ra items <<< "$dependancies"
-
+	
 	for item in "${items[@]}"; do
 	    echo "Item: $item"
 	    sudo apt install "$item"
