@@ -34,12 +34,12 @@ function InstallPackage() {
     sudo dpkg -i "$folder_name/$(basename $linkFromFile)"
 }
 
-read -p "Donnez votre choix : 0 pour télécharger, 1 pour installer avec pacman : " choix
+read -p "0 To Install , 1 TO install with pacman : " choix
 
 
 
 if [ $choix -eq 0 ]; then
-    read -p "Donnez le nom du package : " package
+    read -p "Package name : " package
 
     # Check if the package already exists in the folder
     
@@ -82,10 +82,10 @@ elif [ $choix -eq 1 ]; then
     sudo apt install "$package"
     apt_exit_code=$?
     if [ $apt_exit_code -eq 0 ]; then
-        echo "Installation réussie."
+        echo "Installation successful."
     else
-        echo "Échec de l'installation avec le code de retour $apt_exit_code"
+        echo "Installation failed with exit code $apt_exit_code"
     fi
 else
-    echo "Choix invalide."
+    echo "Invalid choice."
 fi
