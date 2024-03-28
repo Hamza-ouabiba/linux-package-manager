@@ -19,3 +19,6 @@ The Debian Package Installer Script is a Bash script designed to simplify the in
 1. **Clone the Repository**: Clone the repository containing the script onto your system.
    ```bash
    git clone https://github.com/Hamza-ouabiba/linux-package-manager/
+1. **Run the script**:
+   ```bash
+   bash script.sh
