@@ -78,7 +78,7 @@ if [ $choix -eq 0 ]; then
     
     
 elif [ $choix -eq 1 ]; then
-    read -p "Donnez le nom du package : " package
+    read -p "package name : " package
     sudo apt install "$package"
     apt_exit_code=$?
     if [ $apt_exit_code -eq 0 ]; then
